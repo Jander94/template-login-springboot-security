@@ -2,15 +2,17 @@ package com.login.entity;
 
 import com.login.enums.RoleName;
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "role")
+@Table(name = "TB_ROLE")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,6 +28,5 @@ public class RoleEntity implements Serializable {
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private RoleName roleName;
-
 
 }
