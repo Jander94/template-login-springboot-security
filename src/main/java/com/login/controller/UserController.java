@@ -6,6 +6,7 @@ import com.login.repository.UserRepository;
 import com.login.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping
-  public UserEntity cadastrar(@RequestBody @Valid UserDto user){
+  public ResponseEntity cadastrar(@RequestBody @Valid UserDto user){
     return userService.cadastrar(user);
   }
 
