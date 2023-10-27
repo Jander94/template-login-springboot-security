@@ -4,6 +4,7 @@ import com.login.dtos.UserDto;
 import com.login.entity.RoleEntity;
 import com.login.entity.UserEntity;
 import com.login.entity.UserRolesEntity;
+import com.login.errors.exceptions.RegraNegocioException;
 import com.login.repository.RoleRepository;
 import com.login.repository.UserRepository;
 import com.login.repository.UserRolesRepository;
@@ -21,16 +22,18 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final UserRolesRepository userRolesRepository;
 
-    @PostMapping
     public ResponseEntity cadastrar(UserDto user){
         RoleEntity role = roleRepository.findByRoleName(user.getRole());
-        UserEntity userSave = new UserEntity();
-        userSave.setUserName(user.getUserName());
-        userSave.setPassword(user.getPassword());
-
+        Boolean existUser = userRepository.existsByUserName(user.getUserName());
         if(role == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("A role informada não existe");
         }
+        if(existUser){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome de usuário já cadastrado");
+        }
+        UserEntity userSave = new UserEntity();
+        userSave.setUserName(user.getUserName());
+        userSave.setPassword(user.getPassword());
         userRepository.save(userSave);
         userRolesRepository.save(
                 UserRolesEntity.builder()
