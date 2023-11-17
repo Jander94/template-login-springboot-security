@@ -1,20 +1,23 @@
 package com.login.entity;
 
+import com.login.enums.RoleName;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TB_USER_ROLE")
+@Table(name = "TB_ROLES")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class UserRolesEntity implements Serializable {
+public class RolesEntity implements Serializable {
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -22,12 +25,8 @@ public class UserRolesEntity implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
-  @ManyToOne
-  @JoinColumn(name = "userId")
-  private UserEntity user;
-
-  @ManyToOne
-  @JoinColumn(name = "roleId")
-  private RoleEntity role;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private RoleName roleName;
 
 }

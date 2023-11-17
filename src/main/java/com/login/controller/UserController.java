@@ -20,7 +20,7 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping
-  public ResponseEntity cadastrar(@RequestBody @Valid UserDto user){
+  public ResponseEntity<UserEntity> cadastrar(@RequestBody @Valid UserDto user){
     return userService.cadastrar(user);
   }
 

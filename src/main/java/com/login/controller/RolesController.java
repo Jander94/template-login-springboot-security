@@ -1,12 +1,12 @@
 package com.login.controller;
 
-import com.login.entity.RoleEntity;
+import com.login.entity.RolesEntity;
+import com.login.entity.UserEntity;
 import com.login.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/roles")
@@ -16,7 +16,12 @@ public class RolesController {
     private final RoleRepository roleRepository;
 
     @PostMapping
-    public RoleEntity cadastrar(@RequestBody RoleEntity role){
+    public RolesEntity cadastrar(@RequestBody RolesEntity role){
         return roleRepository.save(role);
+    }
+
+    @GetMapping
+    public List<RolesEntity> roles(){
+        return roleRepository.findAll();
     }
 }

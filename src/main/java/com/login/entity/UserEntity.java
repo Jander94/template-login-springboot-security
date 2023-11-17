@@ -6,10 +6,11 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TB_USER")
+@Table(name = "TB_USERS")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class UserEntity implements Serializable {
   private static final long serialVersionUID = 1L;
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID userId;
+  private UUID id;
 
   @Column(nullable = false)
   @NotEmpty(message = "UserName é obrigatório.")
@@ -31,4 +32,6 @@ public class UserEntity implements Serializable {
   @NotEmpty(message = "Password é obrigatório.")
   private String password;
 
+  @OneToMany
+  private List<RolesEntity> roles;
 }
