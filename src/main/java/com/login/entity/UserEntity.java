@@ -32,6 +32,11 @@ public class UserEntity implements Serializable {
   @NotEmpty(message = "Password é obrigatório.")
   private String password;
 
-  @OneToMany
+  @ManyToMany
+  @JoinTable(
+      name = "TB_USERS_ROLES",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id")
+  )
   private List<RolesEntity> roles;
 }
