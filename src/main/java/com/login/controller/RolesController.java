@@ -1,9 +1,11 @@
 package com.login.controller;
 
+import com.login.dtos.RolesDTO;
 import com.login.entity.RolesEntity;
-import com.login.entity.UserEntity;
 import com.login.repository.RoleRepository;
+import com.login.services.RoleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,14 +16,19 @@ import java.util.List;
 public class RolesController {
 
     private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
     @PostMapping
-    public RolesEntity cadastrar(@RequestBody RolesEntity role){
-        return roleRepository.save(role);
+    public ResponseEntity<String> cadastrar(@RequestBody RolesEntity role){
+        var save = roleRepository.save(role);
+        if(save != null){
+            return ResponseEntity.ok("Role cadastrada com sucesso!");
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @GetMapping
-    public List<RolesEntity> roles(){
-        return roleRepository.findAll();
+    public List<RolesDTO> roles(){
+        return roleService.buscarRoles();
     }
 }
